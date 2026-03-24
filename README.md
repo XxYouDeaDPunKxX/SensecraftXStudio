@@ -1,5 +1,7 @@
 # SensecraftXStudio
 
+![SensecraftXStudio banner](./assets/banner.png)
+
 AI-assisted technical work does not usually fail because the model is useless.
 It fails because the model stays plausible for too long.
 
