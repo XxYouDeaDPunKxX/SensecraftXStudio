@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SensecraftXStudio</title>
+  <meta name="description" content="A compact kernel for more disciplined, bounded, and reviewable AI behavior in technical work.">
+  <meta property="og:title" content="SensecraftXStudio">
+  <meta property="og:description" content="A compact kernel for more disciplined, bounded, and reviewable AI behavior in technical work.">
+  <meta property="og:image" content="./assets/hero-banner.png">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface-2: #121212;
+      --accent: #cc2200;
+      --text: #e8e8e8;
+      --text-muted: #888888;
+      --border: #2a2a2a;
+      --terminal: #00cc66;
+      --max: 1120px;
+      --mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      --body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .page {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .section {
+      padding: 56px 0 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section:first-of-type {
+      border-top: 0;
+      padding-top: 32px;
+    }
+
+    .hero {
+      padding-top: 28px;
+    }
+
+    .hero-image,
+    .feature-image,
+    .hud-image {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #0a0a0a;
+    }
+
+    .feature-image-wrap {
+      width: min(100%, 900px);
+      margin: 24px auto 0;
+    }
+
+    .hud-wrap {
+      width: min(100%, 700px);
+      margin: 24px auto 0;
+    }
+
+    .hero-copy,
+    .cta-copy {
+      text-align: center;
+      width: min(100%, 900px);
+      margin: 28px auto 0;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.25rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    .lede {
+      font-size: clamp(1rem, 2vw, 1.22rem);
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .subtle {
+      color: var(--text-muted);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 14px 20px;
+      border: 1px solid var(--accent);
+      color: var(--text);
+      background: transparent;
+      font-weight: 600;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .compact-text {
+      width: min(100%, 760px);
+    }
+
+    .caption {
+      width: min(100%, 720px);
+      margin: 16px auto 0;
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 22px;
+    }
+
+    .card-label,
+    .step-index {
+      display: inline-block;
+      font-family: var(--mono);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.84rem;
+      margin-bottom: 12px;
+    }
+
+    .hud-readout {
+      width: min(100%, 640px);
+      margin: 20px auto 0;
+      padding: 20px;
+      border: 1px solid var(--accent);
+      background: #0a0a0a;
+      font-family: var(--mono);
+      color: var(--terminal);
+    }
+
+    .hud-line + .hud-line {
+      margin-top: 8px;
+    }
+
+    .accordion {
+      margin-top: 28px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      text-align: left;
+      padding: 18px 20px;
+      font: inherit;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .accordion-trigger span:last-child {
+      font-family: var(--mono);
+      color: var(--accent);
+      margin-left: 20px;
+    }
+
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease, opacity 0.2s ease;
+      opacity: 0;
+    }
+
+    .accordion-item[data-open="true"] .accordion-panel {
+      opacity: 1;
+    }
+
+    .accordion-content {
+      padding: 0 20px 20px;
+      color: var(--text-muted);
+    }
+
+    .accordion-content p,
+    .accordion-content ul {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .accordion-content ul {
+      padding-left: 20px;
+    }
+
+    .inline-link {
+      color: var(--text);
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 3px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+    }
+
+    .step:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .step-index {
+      font-size: 1.6rem;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      margin-top: 64px;
+      padding: 64px 20px;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("./assets/blueprint.png") center/cover no-repeat;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: min(100%, 820px);
+      margin: 0 auto;
+    }
+
+    .license-line {
+      margin-top: 18px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 0 28px 96px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <img class="hero-image" src="./assets/hero-banner.png" alt="SensecraftXStudio hero banner" loading="eager">
+      <div class="hero-copy">
+        <h1>SensecraftXStudio</h1>
+        <p class="lede">AI does not usually fail because the model is useless.</p>
+        <p class="lede">It fails because the model stays plausible for too long.</p>
+        <div class="button-row">
+          <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md">Read AGENTS.md</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What goes wrong without it</h2>
+      <div class="feature-image-wrap">
+        <img class="feature-image" src="./assets/engine-chaotic.png" alt="Chaotic engine view" loading="lazy">
+      </div>
+      <div class="compact-text">
+        <p>Without a governing contract, a typical AI session drifts in familiar ways.</p>
+        <p>The assistant recommends before it has really closed the target. It edits before reading enough surrounding context. It treats a file-level change as if it had no downstream consequence.</p>
+        <p>It keeps trying local fixes on a state that is already incoherent. It reports progress that sounds cleaner than the underlying reality.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How the kernel tries to change behavior</h2>
+      <div class="feature-image-wrap">
+        <img class="feature-image" src="./assets/engine-annotated.png" alt="Annotated engine diagram" loading="lazy">
+      </div>
+      <p class="caption">Chaotic inputs enter left. The contract tries to force the session through regulation planes before output closes.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="card-label">Read Before Acting</span>
+          <p>Push the assistant to close the real object before touching the obvious surface.</p>
+        </article>
+        <article class="card">
+          <span class="card-label">Surface Before Expanding</span>
+          <p>Moves that expand scope, risk, or structure are meant to be surfaced before execution, not after.</p>
+        </article>
+        <article class="card">
+          <span class="card-label">Close With Discipline</span>
+          <p>Push the return away from plausible narrative and closer to grounded task state.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>AGENTS.md — The operative kernel</h2>
+      <div class="hud-wrap">
+        <img class="hud-image" src="./assets/hud-inspection.png" alt="Inspection interface view" loading="lazy">
+      </div>
+      <div class="hud-readout" aria-label="Operative contract readout">
+        <div class="hud-line">CONTRACT STATUS: ACTIVE</div>
+        <div class="hud-line">PRIMARY AUTHORITY: OPERATOR</div>
+        <div class="hud-line">TASK MODE: CONSEQUENT WORK</div>
+        <div class="hud-line">CLOSURE STANDARD: DISCIPLINED</div>
+      </div>
+      <div class="accordion" id="kernel-sections">
+        <article class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span>Operating Posture</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>The task is treated as a point inside a larger volume, not as an isolated request. The assistant is pushed to close the real object, distinguish actual state from intended state, and flatten valid paths before choosing.</p>
+              <ul>
+                <li>The visible request is not yet the full target.</li>
+                <li>Apparent locality is not proof of contained consequence.</li>
+                <li>If closure is not justified, the session should surface options and wait.</li>
+              </ul>
+              <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#operating-posture">Read the full AGENTS.md section</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span>Derived Invariants</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>The invariants translate posture into repeatable behavior. They force object closure before action, keep authority from being inferred out of surface signals, preserve operating mode, and prevent single local needs from being promoted into permanent structure too early.</p>
+              <ul>
+                <li>Use the workspace before asking on material ambiguity.</li>
+                <li>Choose the smallest correct procedure.</li>
+                <li>Keep verified, inferred, and hypothetical states distinct.</li>
+              </ul>
+              <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#derived-invariants">Read the full AGENTS.md section</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span>Stop Conditions</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>The contract does not reward plausible continuation when the frame is still materially wrong. It blocks continuation when context, object, authority, destination, or path closure remain unresolved in a way that changes the move.</p>
+              <ul>
+                <li>Expansion without surfacing is a stop, not a detail.</li>
+                <li>An incoherent current state is not treated as a clean base for fix-forward behavior.</li>
+                <li>The assistant should surface the condition, propose the smallest safe next move, and wait.</li>
+              </ul>
+              <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#stop-conditions">Read the full AGENTS.md section</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span>Final Response Contract</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>The final response is pushed toward a compact task-state readout instead of a polished retrospective narrative. It closes with four fields that keep pressure on what was touched, what grounded the move, what is actually known, and whether the task has really converged.</p>
+              <ul>
+                <li><code>Touch</code> — what changed and what stayed untouched</li>
+                <li><code>Ground</code> — what grounded the move or conclusion</li>
+                <li><code>State</code> — what is verified, inferred, unresolved, or not inspected</li>
+                <li><code>Convergence</code> — whether the task is converged, divergent, or blocked</li>
+              </ul>
+              <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#final-response-contract">Read the full AGENTS.md section</a></p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How to use it</h2>
+      <div class="steps">
+        <article class="step">
+          <p class="step-index">01</p>
+          <div>
+            <p>Place <code>AGENTS.md</code> in the root of your project repository.</p>
+          </div>
+        </article>
+        <article class="step">
+          <p class="step-index">02</p>
+          <div>
+            <p>Start a fresh session in an assistant that can read local workspace files. Tell the assistant to read <code>AGENTS.md</code> before acting.</p>
+          </div>
+        </article>
+        <article class="step">
+          <p class="step-index">03</p>
+          <div>
+            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract biases how the assistant reads, decides, acts, stops, and reports.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>One file. One contract. A stronger operational frame for AI work.</h2>
+        <div class="button-row">
+          <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio">View on GitHub</a>
+          <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md">Read AGENTS.md</a>
+        </div>
+        <p class="license-line">Licensed under CC BY-SA 4.0</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll(".accordion-trigger").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".accordion-item");
+        const panel = item.querySelector(".accordion-panel");
+        const isOpen = item.dataset.open === "true";
+
+        item.dataset.open = String(!isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+        button.querySelector("span:last-child").textContent = isOpen ? "+" : "−";
+
+        if (isOpen) {
+          panel.style.maxHeight = "0px";
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
