@@ -10,15 +10,17 @@
   <meta property="og:image" content="./assets/hero-banner.png">
   <style>
     :root {
-      --bg: #0f0f0f;
-      --surface: #1a1a1a;
-      --surface-2: #121212;
-      --accent: #cc2200;
-      --text: #e8e8e8;
-      --text-muted: #888888;
-      --border: #2a2a2a;
-      --terminal: #00cc66;
-      --max: 1120px;
+      --bg: #0b1016;
+      --surface: #121922;
+      --surface-2: #18212c;
+      --accent: #d24c2d;
+      --accent-soft: #f08a5d;
+      --text: #edf2f7;
+      --text-muted: #8d98a7;
+      --border: rgba(173, 188, 204, 0.14);
+      --terminal: #7fe3b0;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --max: 1160px;
       --mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
       --body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -33,7 +35,10 @@
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(240, 138, 93, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(114, 145, 191, 0.12), transparent 32%),
+        linear-gradient(180deg, #0d1219 0%, var(--bg) 32%, #091018 100%);
       color: var(--text);
       font-family: var(--body);
       line-height: 1.6;
@@ -50,63 +55,106 @@
       height: auto;
     }
 
+    .hero-full {
+      width: 100%;
+      display: block;
+      line-height: 0;
+      background: #090e14;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .hero-full img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
     .page {
       width: min(100%, var(--max));
       margin: 0 auto;
-      padding: 0 20px 80px;
+      padding: 0 24px 100px;
     }
 
     .section {
-      padding: 56px 0 24px;
+      padding: 72px 0 24px;
       border-top: 1px solid var(--border);
     }
 
     .section:first-of-type {
       border-top: 0;
-      padding-top: 32px;
+      padding-top: 0;
     }
 
     .hero {
-      padding-top: 28px;
+      margin-top: -42px;
+      padding-top: 0;
     }
 
-    .hero-image,
     .feature-image,
     .hud-image {
       width: 100%;
-      border: 1px solid var(--border);
-      background: #0a0a0a;
+      height: auto;
+      display: block;
+      background: #0a0f15;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
     }
 
     .feature-image-wrap {
       width: min(100%, 900px);
-      margin: 24px auto 0;
-    }
-
-    .hud-wrap {
-      width: min(100%, 700px);
-      margin: 24px auto 0;
-    }
-
-    .hero-copy,
-    .cta-copy {
-      text-align: center;
-      width: min(100%, 900px);
       margin: 28px auto 0;
     }
 
+    .hud-wrap {
+      width: min(100%, 900px);
+      margin: 0 auto;
+    }
+
+    .feature-image-wrap.problem-visual {
+      width: min(100%, 840px);
+    }
+
+    .feature-image-wrap.process-visual {
+      width: min(100%, 920px);
+    }
+
+    .hero-copy {
+      text-align: center;
+      width: min(100%, 860px);
+      margin: 0 auto;
+      padding: 32px 28px 30px;
+      background: linear-gradient(180deg, rgba(24, 33, 44, 0.96), rgba(18, 25, 34, 0.92));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
     h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2.25rem, 6vw, 4.5rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
+      margin: 0 0 16px;
+      font-size: clamp(2.3rem, 5.4vw, 4.35rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+      font-weight: 750;
     }
 
     h2 {
       margin: 0 0 18px;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
+      font-family: var(--mono);
+      font-size: clamp(0.88rem, 1.5vw, 1.02rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .section-heading-center {
+      text-align: center;
     }
 
     p {
@@ -114,13 +162,9 @@
     }
 
     .lede {
-      font-size: clamp(1rem, 2vw, 1.22rem);
-      color: var(--text);
+      font-size: clamp(1.02rem, 2vw, 1.24rem);
+      color: rgba(237, 242, 247, 0.92);
       margin-bottom: 12px;
-    }
-
-    .subtle {
-      color: var(--text-muted);
     }
 
     .button-row {
@@ -135,29 +179,40 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 180px;
-      padding: 14px 20px;
-      border: 1px solid var(--accent);
+      min-width: 196px;
+      padding: 14px 22px;
+      border: 1px solid rgba(240, 138, 93, 0.55);
       color: var(--text);
-      background: transparent;
+      background: rgba(210, 76, 45, 0.08);
       font-weight: 600;
-      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      border-radius: 999px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     }
 
     .button:hover,
     .button:focus-visible {
       background: var(--accent);
       color: #fff;
+      border-color: var(--accent);
       transform: translateY(-1px);
     }
 
     .compact-text {
       width: min(100%, 760px);
+      margin-top: 24px;
+      color: var(--text-muted);
+    }
+
+    .compact-text.centered {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
     }
 
     .caption {
-      width: min(100%, 720px);
-      margin: 16px auto 0;
+      width: min(100%, 760px);
+      margin: 18px auto 0;
       color: var(--text-muted);
       text-align: center;
       font-size: 0.95rem;
@@ -166,35 +221,49 @@
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 28px;
+      gap: 18px;
+      margin-top: 34px;
     }
 
     .card {
       border: 1px solid var(--border);
-      background: var(--surface);
-      padding: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.005)), var(--surface);
+      padding: 24px;
+      border-radius: 22px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
     }
 
-    .card-label,
-    .step-index {
-      display: inline-block;
+    .card-label {
+      display: block;
       font-family: var(--mono);
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.84rem;
+      letter-spacing: 0.11em;
+      font-size: 0.76rem;
       margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
     }
 
     .hud-readout {
-      width: min(100%, 640px);
-      margin: 20px auto 0;
-      padding: 20px;
-      border: 1px solid var(--accent);
-      background: #0a0a0a;
+      width: min(100%, 760px);
+      margin: 0 auto 24px;
+      padding: 22px 24px;
+      border: 1px solid rgba(127, 227, 176, 0.18);
+      background: rgba(12, 18, 24, 0.92);
       font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.9;
       color: var(--terminal);
+      letter-spacing: 0.04em;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
     }
 
     .hud-line + .hud-line {
@@ -202,14 +271,15 @@
     }
 
     .accordion {
-      margin-top: 28px;
+      margin-top: 32px;
       display: grid;
       gap: 12px;
     }
 
     .accordion-item {
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: rgba(18, 25, 34, 0.72);
+      border-radius: 18px;
       overflow: hidden;
     }
 
@@ -220,16 +290,19 @@
       border: 0;
       text-align: left;
       padding: 18px 20px;
-      font: inherit;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 400;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 18px;
       cursor: pointer;
     }
 
     .accordion-trigger span:last-child {
-      font-family: var(--mono);
       color: var(--accent);
       margin-left: 20px;
     }
@@ -246,8 +319,9 @@
     }
 
     .accordion-content {
-      padding: 0 20px 20px;
+      padding: 0 20px 22px;
       color: var(--text-muted);
+      font-size: 0.95rem;
     }
 
     .accordion-content p,
@@ -270,36 +344,43 @@
     .steps {
       display: grid;
       gap: 18px;
-      margin-top: 24px;
+      margin-top: 28px;
     }
 
     .step {
       display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 18px;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
       align-items: start;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 18px;
+      border: 1px solid var(--border);
+      background: rgba(18, 25, 34, 0.7);
+      border-radius: 20px;
+      padding: 24px;
     }
 
     .step:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
+      padding-bottom: 24px;
     }
 
     .step-index {
-      font-size: 1.6rem;
-      margin: 0;
+      font-family: var(--mono);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
       line-height: 1;
+      margin: 0;
+      padding-top: 2px;
     }
 
     .cta-section {
       position: relative;
       overflow: hidden;
+      margin-top: 80px;
+      padding: 72px 20px;
+      background: linear-gradient(180deg, rgba(24, 33, 44, 0.96), rgba(18, 25, 34, 0.96));
       border: 1px solid var(--border);
-      background: var(--surface-2);
-      margin-top: 64px;
-      padding: 64px 20px;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
     }
 
     .cta-section::before {
@@ -327,35 +408,65 @@
 
     @media (min-width: 768px) {
       .page {
-        padding: 0 28px 96px;
+        padding: 0 28px 108px;
       }
 
       .grid {
         grid-template-columns: repeat(3, 1fr);
       }
+
+      .hero-copy {
+        padding: 38px 46px 34px;
+      }
     }
   </style>
 </head>
 <body>
+  <header class="hero-full">
+    <img src="./assets/hero-banner.png" alt="SensecraftXStudio" loading="eager">
+  </header>
   <main class="page">
-    <section class="hero">
-      <img class="hero-image" src="./assets/hero-banner.png" alt="SensecraftXStudio hero banner" loading="eager">
+    <section class="hero section">
       <div class="hero-copy">
         <h1>SensecraftXStudio</h1>
         <p class="lede">AI does not usually fail because the model is useless.</p>
         <p class="lede">It fails because the model stays plausible for too long.</p>
         <div class="button-row">
-          <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md">Read AGENTS.md</a>
+          <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio">View on GitHub</a>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>What goes wrong without it</h2>
-      <div class="feature-image-wrap">
-        <img class="feature-image" src="./assets/engine-chaotic.png" alt="Chaotic engine view" loading="lazy">
+      <h2>How to use it</h2>
+      <div class="steps">
+        <article class="step">
+          <p class="step-index">01</p>
+          <div>
+            <p>Place <code>AGENTS.md</code> in the root of your project repository.</p>
+          </div>
+        </article>
+        <article class="step">
+          <p class="step-index">02</p>
+          <div>
+            <p>Start a fresh session in an assistant that can read local workspace files. Tell the assistant to read <code>AGENTS.md</code> before acting.</p>
+          </div>
+        </article>
+        <article class="step">
+          <p class="step-index">03</p>
+          <div>
+            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract biases how the assistant reads, decides, acts, stops, and reports.</p>
+          </div>
+        </article>
       </div>
-      <div class="compact-text">
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading-center">What goes wrong without it</h2>
+      <div class="feature-image-wrap problem-visual">
+        <img class="feature-image" src="./assets/engine-chaotic.png" alt="Chaotic systems view" loading="lazy">
+      </div>
+      <div class="compact-text centered">
         <p>Without a governing contract, a typical AI session drifts in familiar ways.</p>
         <p>The assistant recommends before it has really closed the target. It edits before reading enough surrounding context. It treats a file-level change as if it had no downstream consequence.</p>
         <p>It keeps trying local fixes on a state that is already incoherent. It reports progress that sounds cleaner than the underlying reality.</p>
@@ -364,8 +475,8 @@
 
     <section class="section">
       <h2>How the kernel tries to change behavior</h2>
-      <div class="feature-image-wrap">
-        <img class="feature-image" src="./assets/engine-annotated.png" alt="Annotated engine diagram" loading="lazy">
+      <div class="feature-image-wrap process-visual">
+        <img class="feature-image" src="./assets/engine-full.png" alt="Engine regulation diagram" loading="lazy">
       </div>
       <p class="caption">Chaotic inputs enter left. The contract tries to force the session through regulation planes before output closes.</p>
       <div class="grid">
@@ -385,15 +496,15 @@
     </section>
 
     <section class="section">
-      <h2>AGENTS.md — The operative kernel</h2>
-      <div class="hud-wrap">
-        <img class="hud-image" src="./assets/hud-inspection.png" alt="Inspection interface view" loading="lazy">
-      </div>
+      <h2>AGENTS.md - The operative kernel</h2>
       <div class="hud-readout" aria-label="Operative contract readout">
         <div class="hud-line">CONTRACT STATUS: ACTIVE</div>
         <div class="hud-line">PRIMARY AUTHORITY: OPERATOR</div>
         <div class="hud-line">TASK MODE: CONSEQUENT WORK</div>
         <div class="hud-line">CLOSURE STANDARD: DISCIPLINED</div>
+      </div>
+      <div class="hud-wrap">
+        <img class="hud-image" src="./assets/hud-inspection.png" alt="Inspection interface view" loading="lazy">
       </div>
       <div class="accordion" id="kernel-sections">
         <article class="accordion-item">
@@ -456,10 +567,10 @@
             <div class="accordion-content">
               <p>The final response is pushed toward a compact task-state readout instead of a polished retrospective narrative. It closes with four fields that keep pressure on what was touched, what grounded the move, what is actually known, and whether the task has really converged.</p>
               <ul>
-                <li><code>Touch</code> — what changed and what stayed untouched</li>
-                <li><code>Ground</code> — what grounded the move or conclusion</li>
-                <li><code>State</code> — what is verified, inferred, unresolved, or not inspected</li>
-                <li><code>Convergence</code> — whether the task is converged, divergent, or blocked</li>
+                <li><code>Touch</code> - what changed and what stayed untouched</li>
+                <li><code>Ground</code> - what grounded the move or conclusion</li>
+                <li><code>State</code> - what is verified, inferred, unresolved, or not inspected</li>
+                <li><code>Convergence</code> - whether the task is converged, divergent, or blocked</li>
               </ul>
               <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#final-response-contract">Read the full AGENTS.md section</a></p>
             </div>
@@ -468,33 +579,9 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>How to use it</h2>
-      <div class="steps">
-        <article class="step">
-          <p class="step-index">01</p>
-          <div>
-            <p>Place <code>AGENTS.md</code> in the root of your project repository.</p>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-index">02</p>
-          <div>
-            <p>Start a fresh session in an assistant that can read local workspace files. Tell the assistant to read <code>AGENTS.md</code> before acting.</p>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-index">03</p>
-          <div>
-            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract biases how the assistant reads, decides, acts, stops, and reports.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <section class="cta-section">
       <div class="cta-inner">
-        <h2>One file. One contract. A stronger operational frame for AI work.</h2>
+        <h2 style="font-size: clamp(1.8rem, 4vw, 3rem); font-family: var(--body); text-transform: none; letter-spacing: -0.02em; color: var(--text);">One file. One contract.<br>A stronger operational frame for AI work.</h2>
         <div class="button-row">
           <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio">View on GitHub</a>
           <a class="button" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md">Read AGENTS.md</a>
@@ -513,7 +600,7 @@
 
         item.dataset.open = String(!isOpen);
         button.setAttribute("aria-expanded", String(!isOpen));
-        button.querySelector("span:last-child").textContent = isOpen ? "+" : "−";
+        button.querySelector("span:last-child").textContent = isOpen ? "+" : "-";
 
         if (isOpen) {
           panel.style.maxHeight = "0px";
