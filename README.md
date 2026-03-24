@@ -29,6 +29,24 @@ Its job is to give the assistant a working frame for how to:
 The goal is not to make the AI feel smarter.
 The goal is to make its behavior more dependable when the workspace is real and the consequences are not fake.
 
+## 🚀 How To Use It
+
+Use [AGENTS.md](./AGENTS.md) as the governing operational contract for a workspace where AI is doing consequential technical work.
+It works best in assistant environments that can read workspace files and follow local operational instructions directly.
+
+In practice, that means:
+- treat it as the primary operative frame for consequential tasks
+- let it shape how the assistant reads, decides, modifies, and closes
+- do not treat it as decorative prompt text
+- expect better discipline, not perfect certainty
+
+A minimal first use is:
+- place `AGENTS.md` in the target project
+- start a fresh session in an assistant that can read local workspace files
+- tell the assistant to read `AGENTS.md` and use it as the operative frame before acting
+
+Results still depend on the host, the session, the available context, and how faithfully the assistant can follow local instructions.
+
 ## 🔄 How A Session Changes
 
 Without a contract like this, a typical session can drift in familiar ways:
@@ -96,24 +114,6 @@ It is a compact contract that biases how an AI reads, decides, acts, stops, and 
 The primary published unit of this repository is [AGENTS.md](./AGENTS.md).
 
 That file is the operative kernel.
-
-## 🚀 How To Use It
-
-Use [AGENTS.md](./AGENTS.md) as the governing operational contract for a workspace where AI is doing consequential technical work.
-It works best in assistant environments that can read workspace files and follow local operational instructions directly.
-
-In practice, that means:
-- treat it as the primary operative frame for consequential tasks
-- let it shape how the assistant reads, decides, modifies, and closes
-- do not treat it as decorative prompt text
-- expect better discipline, not perfect certainty
-
-A minimal first use is:
-- place `AGENTS.md` in the target project
-- start a fresh session in an assistant that can read local workspace files
-- tell the assistant to read `AGENTS.md` and use it as the operative frame before acting
-
-Results still depend on the host, the session, the available context, and how faithfully the assistant can follow local instructions.
 
 ## 🔬 Deep Technical Notes
 
@@ -444,109 +444,73 @@ That word matters.
 The contract is not only trying to make the assistant correct.
 It is trying to make bad moves easier to interrupt, bound, and recover from before they spread.
 
-### 🧠 6. Epistemic discipline and final return
+### 🧠 6. What the contract tries to keep separate before closing
 
-A major part of the kernel is epistemic, not just procedural.
+A lot of AI failure happens near the end, not the beginning.
 
-Many bad AI outputs are not wrong in a binary sense.
-They are wrong because the model collapses different grades of knowledge into one smooth statement.
+The assistant has read enough to sound coherent, but not enough to deserve full confidence.
+A local verification gets stretched into a wider claim.
+An inference gets reported with the same weight as direct inspection.
+An untouched surface disappears from the answer because it was never looked at closely enough to stay visible.
 
-SensecraftXStudio pushes against that collapse at two levels.
+This part of the contract tries to push against that collapse.
 
-**Internal epistemic discipline**
+It does so in two linked ways.
 
-`Invariant 7` requires the assistant to keep distinct:
-- verified
-- inferred
-- hypothetical
+**First, it tries to preserve epistemic separation.**
 
-The newer final contract extends that operationally into:
+The file keeps pressure on distinctions such as:
 - verified
 - inferred
 - unresolved
 - not inspected
 
-This matters because AI often does partial reading, then unconsciously upgrades:
-- local verification into system-wide confidence
-- plausible inference into settled fact
-- untouched surfaces into invisible non-issues
+That pressure matters because the assistant will often produce a smoother answer than the underlying state deserves.
+The contract is trying to make that smoothing harder.
 
-**Grounding pressure before closure**
+This is why the file insists on separating what was actually checked from what was only concluded, assumed, or left open.
+It is not a guarantee that the assistant will never blur those states.
+It is a mechanism meant to make that blur less likely, more visible, and easier to interrupt.
 
-`Invariant 9` keeps an intentional link between:
-- disciplined reporting
-- reading what actually grounds the target before concluding
+**Second, it ties closure back to grounding.**
 
-That matters because the last stage of AI failure is often elegant closure built on weak grounding.
-The assistant sounds finished because it has reached a clean verbal shape, not because it has really read what closes the object.
+The contract does not treat a clean final answer as sufficient by itself.
+Before closing, the assistant is supposed to return to what actually grounds the target, rather than rely on the shape of its own conclusion.
 
-So epistemic discipline here is not only:
-"be honest."
+That matters because one of the most common late-stage failures is rhetorical closure:
+the answer sounds finished because it is well-formed, not because the real object has been grounded strongly enough.
 
-It is:
-do not let the output pretend that all parts of the conclusion stand on the same evidentiary floor.
+The `Final Response Contract` is the last compression layer of this logic.
 
-The last stage of the kernel is not just reporting.
-It is controlled return.
-
-Two operator-facing mechanics matter here.
-
-**Do not make consequential reasoning harder to follow than the task requires**
-
-This rule is intentionally placed low in the file, close to the end.
-It is a secondary function:
-when the assistant returns to the operator, consequential reasoning should not become more opaque than necessary.
-
-This does not mean:
-- always simplify
-- always compress
-- always teach
-
-It means:
-- do not add unnecessary opacity
-- use the operator's working language and form unless precision would be lost
-
-**Final Response Contract as compact serialization**
-
-The final contract has been compressed into:
+Its fields:
 - `Touch`
 - `Ground`
 - `State`
 - `Convergence`
 
-This changes the final output model.
+are not there just to format the answer nicely.
 
-Instead of ending with a more narrative retrospective grid, the assistant is pushed toward four compact categories aligned with internal working processes:
-- what was touched
-- what grounded the move
-- what is actually known
-- whether the task has really converged
+They are there to force a more bounded closing readout:
+- what was actually touched
+- what the move was grounded on
+- what is known versus inferred or still open
+- whether the task is really closed, still divergent, or blocked
 
-The added line:
-- `Keep these fields aligned with the task state as work proceeds; do not reconstruct them from memory only at the end.`
-makes the intended mechanism explicit.
+The contract also tries to reduce retrospective storytelling.
+Instead of inventing a polished explanation after the fact, the assistant is pushed to keep these categories close to the task as it works, then serialize them at the end.
 
-This is an important internal design choice.
-The contract used to be easier to read as a retrospective checklist.
-Now it is more compact and more mechanically aligned with the kernel's active pressures:
-- `Touch` compresses changed / not changed
-- `Ground` compresses what authorizes or supports the move
-- `State` compresses verified / inferred / unresolved / not inspected
-- `Convergence` compresses whether the task has actually closed
+That does not make the output perfectly reliable.
+It does make it harder for the assistant to hide uncertainty inside fluency.
 
-The contract is therefore not supposed to be a beautiful summary invented after the fact.
-It is supposed to be a compact final serialization of task state that should already be alive by the time the response closes.
+The operator-facing clarity rule belongs here too.
 
-That reduces two common failure modes:
-- retrospective self-justification
-- smooth false closure produced from memory and tone rather than actual task state
+Near the end of the file, the contract says not to make consequential reasoning harder to follow than the task requires, and to use the operator's working language and form unless precision would be lost.
 
-The optional short note exists for overflow:
-if the compact contract is not enough to clarify the operator-facing result or the task state, one short note may be added.
+That rule is not there to make the assistant pedagogical.
+It is there to stop the final answer from becoming more opaque than the work itself.
 
-So the final output layer is doing more than formatting.
-It is the last compression stage of the kernel's internal discipline:
-entry, closure, expansion control, stopping, epistemic separation, and operator-facing return all collapse into one final bounded readout.
+So this section is not about giving the assistant a perfect epistemology.
+It is about making the last stage of the interaction less likely to collapse mixed knowledge into one clean but misleading answer.
 
 ### 🚧 7. What the kernel does not try to do
 
