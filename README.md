@@ -13,7 +13,7 @@ It is a compact operational contract for how an AI assistant should behave when 
 
 This repository is built around one canonical file: [AGENTS.md](./AGENTS.md).
 
-## What It Is
+## ⚙️ What It Is
 
 SensecraftXStudio is not a runtime agent.
 It is a behavior-shaping kernel.
@@ -29,7 +29,7 @@ Its job is to give the assistant a working frame for how to:
 The goal is not to make the AI feel smarter.
 The goal is to make its behavior more dependable when the workspace is real and the consequences are not fake.
 
-## How A Session Changes
+## 🔄 How A Session Changes
 
 Without a contract like this, a typical session can drift in familiar ways:
 - the assistant recommends before it has really closed the target
@@ -53,7 +53,7 @@ That means the AI is more likely to:
 The effect is not magic certainty.
 It is better operational behavior.
 
-## Why This Matters
+## 🎯 Why This Matters
 
 If you work with AI long enough, you already know the limits:
 - context is partial
@@ -65,7 +65,7 @@ If you work with AI long enough, you already know the limits:
 SensecraftXStudio does not try to erase those limits.
 It tries to make them harder to ignore.
 
-## What It Is Good For
+## 🛠️ What It Is Good For
 
 SensecraftXStudio is for people working with AI who want disciplined AI behavior in real technical contexts.
 
@@ -79,7 +79,7 @@ That includes work such as:
 It is programming-oriented first, but not programming-only.
 The same behavior patterns show up anywhere AI is helping drive real technical work.
 
-## What It Is Not
+## 🚫 What It Is Not
 
 SensecraftXStudio is not:
 - a deterministic control system
@@ -91,13 +91,13 @@ SensecraftXStudio is not:
 
 It is a compact contract that biases how an AI reads, decides, acts, stops, and reports.
 
-## Current Published Unit
+## 📄 Current Published Unit
 
 The primary published unit of this repository is [AGENTS.md](./AGENTS.md).
 
 That file is the operative kernel.
 
-## How To Use It
+## 🚀 How To Use It
 
 Use [AGENTS.md](./AGENTS.md) as the governing operational contract for a workspace where AI is doing consequential technical work.
 It works best in assistant environments that can read workspace files and follow local operational instructions directly.
@@ -115,12 +115,26 @@ A minimal first use is:
 
 Results still depend on the host, the session, the available context, and how faithfully the assistant can follow local instructions.
 
-## Deep Technical Notes
-
-If you want the internal mechanics rather than the public summary, the notes below walk through how the contract changes behavior from task entry to final output.
+## 🔬 Deep Technical Notes
 
 <details>
-<summary>Activation, authority, and re-entry mechanics</summary>
+<summary>How the kernel works internally</summary>
+
+This section explains the main internal mechanics of the contract:
+how it establishes authority, how it enters a task, how it decides whether to proceed or stop, how it constrains execution, and how it closes into final output.
+
+| Mechanism | Behavioral pressure | Typical failure mode prevented |
+|------|------|------|
+| Authority and re-entry | the contract stays primary across consequential threshold crossings | silent authority drift, local override by momentum |
+| Point / volume posture | the visible request is not treated as the whole object | acting on surface instead of real target |
+| Horizontal plane | object, authority, and mode are closed before action | premature execution from partial framing |
+| Expansion filter | contained moves proceed, consequential expansion must be surfaced | scope creep disguised as local work |
+| Stop conditions | meaningful ambiguity blocks continuation instead of being smoothed over | false continuation, premature convergence |
+| Execution discipline | smallest correct procedure, anti-drift, recoverable motion | cleanup drift, overreach, fix-forward behavior |
+| Epistemic discipline | verified, inferred, unresolved, and uninspected stay distinct | smooth false certainty |
+| Final return | compact task-state serialization plus operator-facing clarity | opaque reporting, retrospective self-justification |
+
+### 🧭 1. Authority and re-entry
 
 The file begins by doing something most prompts do not do:
 it closes authority before it explains behavior.
@@ -157,22 +171,47 @@ That authority model then flows into the rest of the file:
 
 So the opening mechanics do not merely "introduce" the file.
 They define the recurrence rule that keeps the rest of the kernel alive during a session.
-</details>
 
-<details>
-<summary>Task-entry mechanics: point, volume, object, authority, mode</summary>
+### 🗺️ 2. Posture and horizontal plane
+
+The kernel does not move straight from instruction to invariants.
+It passes first through two intermediate layers:
+
+- `Operating Posture`
+- `Horizontal Plane`
+
+This matters because the file does not want the assistant to memorize rules only as isolated statements.
+It wants to shape the geometry of movement before specific decisions are made.
+
+`Operating Posture` is where the file changes how the assistant sees the task:
+- the task is a point
+- the system is the volume around it
+- apparent locality is not proof of contained consequence
+- state and intention are not the same thing
+- when more than one valid path exists, the assistant should flatten the options before selecting one
+
+That posture is then compressed in the `Horizontal Plane`, which is the shortest operational skeleton of the file:
+
+| Horizontal plane | What it asks the assistant to do |
+|------|------|
+| A. Close context before acting | close object, close authority, close operating mode |
+| B. Read the move before executing it | distinguish contained motion from consequential expansion |
+| C. Execute minimally and report honestly | prefer the smallest correct procedure and close with epistemic discipline |
+
+This is a key design choice.
+The contract is not just a list of prohibitions.
+It has a short internal frame that the rest of the file keeps unpacking.
+
+### 🔐 3. Task entry and invariants
 
 The contract does not let the assistant enter a task as if the obvious request were already the full object.
 
 This is the first major internal mechanism.
 
 The `Operating Posture` applies three linked pressures:
-
 - the task is only a point
 - the real system is the volume around it
 - apparent locality is not proof of contained consequence
-
-That changes entry behavior in a very specific way.
 
 Without the kernel, an assistant tends to do something like:
 - read the user request
@@ -194,8 +233,7 @@ This is then compressed in the `Horizontal Plane` as:
 - close authority
 - close operating mode
 
-These are not abstract ideals.
-They are practical preconditions.
+These are practical preconditions.
 
 `Close object` means:
 the assistant must distinguish between:
@@ -214,8 +252,6 @@ Authority has to be grounded in:
 - actual workspace state
 - canonical project rules, if they exist
 
-This matters because AI often upgrades local signals into authority without saying so.
-
 `Close operating mode` means:
 the assistant should not slide unnoticed between:
 - orientation
@@ -227,15 +263,28 @@ the assistant should not slide unnoticed between:
 Mode confusion is expensive.
 A model that is still orienting itself but starts behaving like it is already executing is exactly how silent bad moves happen.
 
-So the entry mechanism of the kernel is not:
+So the entry mechanism of the kernel is not just:
 "understand the task better."
 
 It is:
 before acting, close the object, the authority, and the mode strongly enough that the move is no longer being justified by surface alone.
-</details>
 
-<details>
-<summary>Decision mechanics: contained vs expansion, ambiguity, and path selection</summary>
+The `Derived Invariants` are the translation layer between the high-level posture and repeatable behavior.
+They are where the file turns general orientation into specific pressure points:
+
+| Invariant | Operational role | Typical bad default it corrects |
+|------|------|------|
+| Close object before acting | closes the real target before modification | acting on the nearest surface |
+| Authority is not inferred from surface signals | closes who or what licenses the move | treating freshness, confidence, or tone as authority |
+| One operating mode at a time | prevents silent mode switching | orienting while behaving as if already executing |
+| Surface consequential expansion before proceeding | makes scope/risk/structure crossings explicit | refactor or cleanup drift presented as a local fix |
+| Inspect before asking | uses the workspace before escalating ambiguity outward | asking too early or acting too early |
+| Choose the smallest correct procedure | minimizes intervention size | overbuilding from a small need |
+| Keep verified, inferred, and hypothetical distinct | preserves epistemic separation | smooth confidence across mixed evidence |
+| Do not formalize from a single instance | blocks premature abstraction | promoting one case into permanent structure |
+| Report with disciplined closure | keeps final reporting grounded and bounded | elegant closure on weak grounding |
+
+### ⛔ 4. Decision and stop conditions
 
 Once inside the task, the kernel introduces a second major mechanism:
 it does not ask only whether a move is possible.
@@ -309,24 +358,41 @@ the assistant is pushed to think horizontally before committing vertically.
 
 It does not become omniscient.
 It becomes less eager to collapse possibility into action.
-</details>
 
-<details>
-<summary>Execution mechanics: bounded intervention, anti-drift, and recovery boundaries</summary>
+The hard edge of this logic is the `Stop Conditions` block.
+That block matters because it tells the assistant where the contract stops being advisory and starts refusing continuation.
+
+The stop conditions are not there to maximize caution in the abstract.
+They exist to prevent continuation when continuation would rest on a materially false frame.
+
+| Stop condition family | What continuation would get wrong |
+|------|------|
+| context still materially unclear | the assistant would move without enough reading perimeter |
+| real object not closed | the assistant would touch a surface while missing the real target |
+| authority materially unclear | the move would be justified by weak or guessed authority |
+| expansion not surfaced | the assistant would cross scope, risk, or structure silently |
+| destination or target ambiguous | the assistant would continue toward the wrong consequence |
+| multiple valid paths without justified closure | the assistant would collapse options into premature convergence |
+| incoherent current state | the assistant would normalize corruption through fix-forward motion |
+
+This is one of the clearest differences between default AI operation and this kernel:
+the contract does not treat fluent continuation as a virtue in itself.
+It treats unearned continuation as risk.
+
+### 🧱 5. Execution and recovery
 
 Once a move is justified, the contract still does not release the assistant into free execution.
 
 It adds execution discipline through three main constraints.
 
-### 1. Smallest correct procedure
+**Smallest correct procedure**
 
 The assistant is biased toward:
 - the smallest correct read
 - the smallest correct change
 - the smallest correct intervention
 
-This is not about minimalism for aesthetics.
-It is anti-drift engineering.
+This is anti-drift engineering.
 
 AI tends to widen work while moving:
 - local fix becomes cleanup
@@ -336,10 +402,9 @@ AI tends to widen work while moving:
 
 The line:
 - `Do not silently turn a local task into cleanup, architecture work, or policy rewrite`
-is doing a lot of work.
-It blocks the model from converting operational motion into self-justifying expansion.
+blocks the model from converting operational motion into self-justifying expansion.
 
-### 2. No formalization from a single instance
+**No formalization from a single instance**
 
 This is the anti-premature-abstraction layer.
 
@@ -353,9 +418,7 @@ The contract pushes the opposite:
 one local need is not enough.
 Repeated relevance is the threshold for promotion.
 
-This keeps the assistant from trying to "improve the system" every time it solves one local problem.
-
-### 3. Recovery boundary on incoherent state
+**Recovery boundary on incoherent state**
 
 This is one of the sharpest safeguards in the file.
 
@@ -377,12 +440,11 @@ It prevents the assistant from normalizing corruption through continuation.
 Taken together, these execution mechanics are trying to do something very specific:
 keep action recoverable.
 
-Not merely correct in theory.
-Recoverable in practice.
-</details>
+That word matters.
+The contract is not only trying to make the assistant correct.
+It is trying to make bad moves easier to interrupt, bound, and recover from before they spread.
 
-<details>
-<summary>Epistemic mechanics: verified, inferred, unresolved, uninspected</summary>
+### 🧠 6. Epistemic discipline and final return
 
 A major part of the kernel is epistemic, not just procedural.
 
@@ -391,7 +453,7 @@ They are wrong because the model collapses different grades of knowledge into on
 
 SensecraftXStudio pushes against that collapse at two levels.
 
-### Internal epistemic discipline
+**Internal epistemic discipline**
 
 `Invariant 7` requires the assistant to keep distinct:
 - verified
@@ -409,61 +471,42 @@ This matters because AI often does partial reading, then unconsciously upgrades:
 - plausible inference into settled fact
 - untouched surfaces into invisible non-issues
 
-The kernel is trying to stop exactly that.
-
-### Grounding pressure before closure
+**Grounding pressure before closure**
 
 `Invariant 9` keeps an intentional link between:
 - disciplined reporting
 - reading what actually grounds the target before concluding
 
-That is a controlled hybrid in the file, and it matters.
-
-Why?
-Because the last stage of AI failure is often elegant closure built on weak grounding.
+That matters because the last stage of AI failure is often elegant closure built on weak grounding.
 The assistant sounds finished because it has reached a clean verbal shape, not because it has really read what closes the object.
-
-The kernel pushes against that by making closure answer to grounding, not just to rhetorical smoothness.
 
 So epistemic discipline here is not only:
 "be honest."
 
 It is:
 do not let the output pretend that all parts of the conclusion stand on the same evidentiary floor.
-</details>
-
-<details>
-<summary>Output mechanics: operator-facing return and final contract serialization</summary>
 
 The last stage of the kernel is not just reporting.
 It is controlled return.
 
 Two operator-facing mechanics matter here.
 
-### 1. Do not make consequential reasoning harder to follow than the task requires
+**Do not make consequential reasoning harder to follow than the task requires**
 
 This rule is intentionally placed low in the file, close to the end.
-
-That placement matters.
-
-It is not meant to become the mission of the kernel.
 It is a secondary function:
 when the assistant returns to the operator, consequential reasoning should not become more opaque than necessary.
 
 This does not mean:
 - always simplify
 - always compress
-- always "teach"
+- always teach
 
 It means:
 - do not add unnecessary opacity
 - use the operator's working language and form unless precision would be lost
 
-So the kernel protects both sides:
-- operator followability
-- precision retention
-
-### 2. Final Response Contract as compact serialization
+**Final Response Contract as compact serialization**
 
 The final contract has been compressed into:
 - `Touch`
@@ -471,8 +514,7 @@ The final contract has been compressed into:
 - `State`
 - `Convergence`
 
-This is not just a cosmetic change.
-It changes the final output model.
+This changes the final output model.
 
 Instead of ending with a more narrative retrospective grid, the assistant is pushed toward four compact categories aligned with internal working processes:
 - what was touched
@@ -484,7 +526,15 @@ The added line:
 - `Keep these fields aligned with the task state as work proceeds; do not reconstruct them from memory only at the end.`
 makes the intended mechanism explicit.
 
-The contract is not supposed to be a beautiful summary invented after the fact.
+This is an important internal design choice.
+The contract used to be easier to read as a retrospective checklist.
+Now it is more compact and more mechanically aligned with the kernel's active pressures:
+- `Touch` compresses changed / not changed
+- `Ground` compresses what authorizes or supports the move
+- `State` compresses verified / inferred / unresolved / not inspected
+- `Convergence` compresses whether the task has actually closed
+
+The contract is therefore not supposed to be a beautiful summary invented after the fact.
 It is supposed to be a compact final serialization of task state that should already be alive by the time the response closes.
 
 That reduces two common failure modes:
@@ -493,13 +543,47 @@ That reduces two common failure modes:
 
 The optional short note exists for overflow:
 if the compact contract is not enough to clarify the operator-facing result or the task state, one short note may be added.
-That keeps the format compact without forcing false completeness.
 
 So the final output layer is doing more than formatting.
 It is the last compression stage of the kernel's internal discipline:
 entry, closure, expansion control, stopping, epistemic separation, and operator-facing return all collapse into one final bounded readout.
+
+### 🚧 7. What the kernel does not try to do
+
+The contract is strong, but it is intentionally not trying to solve everything.
+
+It does not try to:
+- make AI behavior deterministic
+- replace senior technical judgment
+- eliminate host effects, context decay, or model limits
+- guarantee correctness from instruction quality alone
+- turn one good local behavior into universal reliability
+- educate the operator as a primary mission
+
+That last point matters.
+The kernel may improve operator understanding as a side effect, but that is not its main scope.
+Its main scope is to discipline the assistant's movement.
+
+### ⚖️ 8. Controlled trade-offs
+
+Several parts of the file are intentionally not "pure" in a formal sense.
+They are controlled trade-offs made in favor of better operational behavior.
+
+Examples:
+- the re-entry trigger adds overhead, but reduces drift across consequential threshold crossings
+- `Invariant 9` is slightly hybrid, but it keeps closure tied to grounding instead of rhetoric alone
+- the operator-facing clarity rule sits low and laterally in the file so it shapes return behavior without becoming the kernel's main mission
+- `State` is more compact than a fully expanded epistemic grid, but lighter for the host and closer to the kernel's active internal pressures
+
+This is part of the design philosophy of the file:
+not formal purity for its own sake, but the smallest structure that produces better movement under real conditions.
 </details>
 
-## License
+## 🤝 Human + AI Note
+
+This work was developed through collaboration between a human operator and AI assistants.
+The published form is not raw generated output, but a reviewed and selected result shaped through repeated revision.
+
+## 📜 License
 
 This work is licensed under [CC BY-SA 4.0](./LICENSE).
