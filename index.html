@@ -455,7 +455,7 @@
         <article class="step">
           <p class="step-index">03</p>
           <div>
-            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract biases how the assistant reads, decides, acts, stops, and reports.</p>
+            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract works best when the assistant keeps returning to it during consequential work instead of treating it as a one-time setup step.</p>
           </div>
         </article>
       </div>
@@ -470,6 +470,7 @@
         <p>Without a governing contract, a typical AI session drifts in familiar ways.</p>
         <p>The assistant recommends before it has really closed the target. It edits before reading enough surrounding context. It treats a file-level change as if it had no downstream consequence.</p>
         <p>It keeps trying local fixes on a state that is already incoherent. It reports progress that sounds cleaner than the underlying reality.</p>
+        <p>It can also lock onto the first plausible path too early, treating an early answer as if it were already a conclusion.</p>
       </div>
     </section>
 
@@ -514,11 +515,11 @@
           </button>
           <div class="accordion-panel">
             <div class="accordion-content">
-              <p>The task is treated as a point inside a larger volume, not as an isolated request. The assistant is pushed to close the real object, distinguish actual state from intended state, and flatten valid paths before choosing.</p>
+              <p>The task is treated as a point inside a larger volume, not as an isolated request. The assistant is pushed to close the real object, distinguish actual state from intended state, and avoid converging too early on its first workable reading.</p>
               <ul>
                 <li>The visible request is not yet the full target.</li>
                 <li>Apparent locality is not proof of contained consequence.</li>
-                <li>If closure is not justified, the session should surface options and wait.</li>
+                <li>Early answers should behave like candidates until the framing has been opened enough to justify convergence.</li>
               </ul>
               <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#operating-posture">Read the full AGENTS.md section</a></p>
             </div>
@@ -531,11 +532,11 @@
           </button>
           <div class="accordion-panel">
             <div class="accordion-content">
-              <p>The invariants translate posture into repeatable behavior. They force object closure before action, keep authority from being inferred out of surface signals, preserve operating mode, and prevent single local needs from being promoted into permanent structure too early.</p>
+              <p>The invariants turn posture into repeatable constraints. They push the assistant to close the real object before acting, keep authority grounded in the right order, preserve operating mode, and avoid promoting one local need into permanent structure too early.</p>
               <ul>
-                <li>Use the workspace before asking on material ambiguity.</li>
-                <li>Choose the smallest correct procedure.</li>
-                <li>Keep verified, inferred, and hypothetical states distinct.</li>
+                <li>Use the workspace before asking when the ambiguity would change the move.</li>
+                <li>Choose the smallest correct procedure instead of widening a local task by momentum.</li>
+                <li>Keep verified, inferred, unresolved, and uninspected states distinct.</li>
               </ul>
               <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#derived-invariants">Read the full AGENTS.md section</a></p>
             </div>
@@ -552,7 +553,7 @@
               <ul>
                 <li>Expansion without surfacing is a stop, not a detail.</li>
                 <li>An incoherent current state is not treated as a clean base for fix-forward behavior.</li>
-                <li>The assistant should surface the condition, propose the smallest safe next move, and wait.</li>
+                <li>When stopping, the assistant should name what is missing, give the smallest unblock move, and wait.</li>
               </ul>
               <p><a class="inline-link" href="https://github.com/XxYouDeaDPunKxX/SensecraftXStudio/blob/main/AGENTS.md#stop-conditions">Read the full AGENTS.md section</a></p>
             </div>
@@ -565,10 +566,10 @@
           </button>
           <div class="accordion-panel">
             <div class="accordion-content">
-              <p>The final response is pushed toward a compact task-state readout instead of a polished retrospective narrative. It closes with four fields that keep pressure on what was touched, what grounded the move, what is actually known, and whether the task has really converged.</p>
+              <p>The final response is pushed toward a compact task-state readout instead of a polished retrospective narrative. It closes with fields that keep pressure on what was touched, what grounded the move, what is actually known, and whether the task has really converged.</p>
               <ul>
-                <li><code>Touch</code> - what changed and what stayed untouched</li>
-                <li><code>Ground</code> - what grounded the move or conclusion</li>
+                <li><code>Touch</code> - what changed and what stayed untouched within expected scope</li>
+                <li><code>Ground</code> - what the move or conclusion was grounded on</li>
                 <li><code>State</code> - what is verified, inferred, unresolved, or not inspected</li>
                 <li><code>Convergence</code> - whether the task is converged, divergent, or blocked</li>
               </ul>
