@@ -455,7 +455,7 @@
         <article class="step">
           <p class="step-index">03</p>
           <div>
-            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract works best when the assistant keeps returning to it during consequential work instead of treating it as a one-time setup step.</p>
+            <p>Expect more discipline and stronger guardrails, not certainty or automatic correctness. The contract works best when it stays active as the frame for the work instead of being treated as a one-time setup step.</p>
           </div>
         </article>
       </div>
@@ -549,8 +549,9 @@
           </button>
           <div class="accordion-panel">
             <div class="accordion-content">
-              <p>The contract does not reward plausible continuation when the frame is still materially wrong. It blocks continuation when context, object, authority, destination, or path closure remain unresolved in a way that changes the move.</p>
+              <p>The contract does not reward plausible continuation when the frame is still materially wrong. It blocks continuation when context, object, authority, destination, path closure, or the contract frame itself is degraded in a way that changes the move.</p>
               <ul>
+                <li>If the contract is no longer the active frame for the next response, the session should stop and re-enter before continuing.</li>
                 <li>Expansion without surfacing is a stop, not a detail.</li>
                 <li>An incoherent current state is not treated as a clean base for fix-forward behavior.</li>
                 <li>When stopping, the assistant should name what is missing, give the smallest unblock move, and wait.</li>
