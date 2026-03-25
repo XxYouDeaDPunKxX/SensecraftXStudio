@@ -38,7 +38,7 @@ In practice, that means:
 - treat it as the primary operative frame for consequential tasks
 - let it shape how the assistant reads, decides, modifies, and closes
 - do not treat it as decorative prompt text
-- expect the assistant to keep coming back to the file during consequential work, not just read it once at the start
+- expect the file to stay active as the working frame, not just be read once at the start
 - expect better discipline, not perfect certainty
 
 A minimal first use is:
@@ -139,13 +139,20 @@ how it establishes authority, how it enters a task, how it decides whether to pr
 
 ### 1. Authority and re-entry
 
-The opening of the file is meant to reduce a simple failure mode: the assistant reads the contract once, then keeps moving on local momentum long after the frame has gone weak.
+The opening of the file is there to solve a simple problem: a contract can be read, understood, and then quietly downgraded into background text while the session keeps moving.
 
-That matters because drift is usually quiet. A nearby note starts acting like authority. A local surface starts standing in for the real object. The assistant keeps using the same mode it was already in without checking whether that mode still fits the task.
+The kernel now makes that risk more explicit.
 
-This part of the file tries to push against that pattern.
+`Contract Activation` is the part that closes entry into the file. It does not just say "read this first." It says what activation means: the file should govern how the next response is read, framed, and approached, not only what actions are allowed.
 
-It keeps the contract in force during consequential work, and it asks the assistant to return to the frame when consequence, scope, authority, or mode becomes unclear. The goal is not to make the session rigid. It is to make it harder for the assistant to keep going on a weak frame just because the last local step sounded plausible.
+That also makes drift easier to name. Drift is not just uncertainty or bad judgment. It is the state where the file is no longer the active frame for the next response and has fallen back into one-time reading, memory-only guidance, or passive background.
+
+That matters because a lot of quiet failure starts there:
+- local momentum begins standing in for the contract
+- nearby text starts feeling more authoritative than it is
+- the assistant keeps sounding coherent after the frame has already degraded
+
+Re-entry is now tighter for the same reason. It does not mean a vague mental reset. It means rereading the file in full and reactivating it as the operative frame before continuing.
 
 ### 2. Posture and horizontal plane
 
@@ -225,11 +232,11 @@ The main question is not only whether a move is possible. It is what kind of mov
 
 The second question is whether unresolved ambiguity would materially change the move. The file does not try to stop on every uncertainty. It tries to stop when the uncertainty changes what the move actually is.
 
-That is where the stop conditions matter. They are there to block continuation when continuation would rest on a false frame: wrong object, weak authority, hidden expansion, ambiguous destination, unjustified path closure, or an incoherent base state.
+That logic now includes degraded contract state more explicitly. The file does not treat a weakened frame as harmless background noise. If the contract is no longer the active frame for the next response, continuation is no longer on clean enough ground to proceed as if nothing changed.
 
-When one of those conditions holds, the expected behavior is not just to stop. It is to say what is missing, give the smallest unblock move, and wait.
+When one of these stop conditions holds, the expected behavior is not just to pause vaguely. It is to say what is missing, give the smallest unblock move, and wait.
 
-That is a practical correction to a common failure mode: the model keeps going because the answer still sounds plausible, even though the ground under it is no longer clean enough to support the move.
+That is a practical correction to a common failure mode: the model keeps going because the answer still sounds plausible, even though the frame underneath it is no longer reliable enough to support the move.
 
 ### 5. Execution and recovery
 
@@ -343,11 +350,12 @@ Several parts of the file are deliberate trade-offs.
 The goal is not formal purity. The goal is better movement under real conditions.
 
 Examples:
-- keeping the contract in force and asking for re-entry on unclear consequence, scope, authority, or mode adds some overhead, but reduces quiet drift during consequential work
+- keeping the contract active for the session adds some overhead, but reduces the chance that it turns into background text after the opening read
+- naming drift explicitly makes the contract stricter, but it also makes frame degradation easier to detect and stop on
 - the pre-convergence checks add friction before commitment, but reduce the chance of collapsing too early onto the first workable path
 - the stop conditions do more than block; they ask the assistant to name what is missing and give the smallest unblock move, which makes stopping more usable in practice
 - live-surface verification adds one more check near the end, but reduces clean closure on stale or mismatched output
-- the bootstrap block adds a small amount of fixed project context, but reduces avoidable inference about where the project lives, what auxiliary area exists, and what should not be touched
+- the bootstrap block adds a small amount of fixed project context, but reduces avoidable inference when the instance context is actually known
 
 These are not meant as proofs of correctness.
 They are small costs accepted in exchange for behavior that is easier to review, interrupt, and recover when the work has real consequence.
