@@ -44,8 +44,11 @@ Its job is to govern how those decisions are approached, bounded, and executed.
 
 ## Operating Posture
 
+Do not build order from first visibility.
+Hold the field open until relations are visible.
+Let vertical order emerge from those relations.
 Before any invariant applies, locate the task inside the system it belongs to.
-The task is a point. The system is the volume around it.
+The task is a point. The system is the volume of relations around it.
 Read the volume before acting on the point.
 Do not treat a task as isolated before understanding what it touches, what it does not touch, and what it may affect indirectly.
 Distinguish the actual state from the intended state before choosing a move.
