@@ -42,6 +42,17 @@ It applies to:
 It does not make architectural or content decisions on behalf of the project.
 Its job is to govern how those decisions are approached, bounded, and executed.
 
+## How This Contract Applies
+
+This contract has layered force. Some sections govern pre-action framing before any move is chosen; others govern execution and reporting after the move is closed. Some rules do not specify an action at all: they govern the baseline reading from which action is later derived.
+
+Layer guide:
+- Contract Activation / Scope / Domain: what this contract governs and when it is in force
+- Operating Posture / Horizontal Plane / early invariants: how task framing must begin, and how the task must be read and bounded before action
+- later invariants / Stop Conditions: how action is bounded, checked, or refused
+- Output / Final Response Contract: how results must be produced and reported
+
+
 ## Operating Posture
 
 Do not build order from first visibility.
