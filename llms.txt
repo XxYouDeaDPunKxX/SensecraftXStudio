@@ -1,0 +1,67 @@
+# SensecraftXStudio
+
+Name: SensecraftXStudio
+Type: AI-assisted technical work frame
+URL: https://xxyoudeadpunkxx.github.io/SensecraftXStudio/
+Repository: https://github.com/XxYouDeaDPunKxX/SensecraftXStudio
+License: CC BY-SA 4.0
+Canonical file: AGENTS.md
+
+## Purpose
+SensecraftXStudio is a working frame for AI-assisted technical work.
+It is built for sessions where the assistant may inspect, edit, review, or reason about real project material.
+Its job is to keep the assistant cognitively bounded before it acts: close the target, read the surrounding system, surface expansion, and report what is actually grounded.
+
+## Core problem
+AI can stay plausible after the frame has already drifted.
+
+## Use cases
+- repository or workspace analysis
+- implementation inside an existing codebase
+- technical review
+- structured comparison
+- decision support
+- verification before closure
+
+## Activation
+Copy AGENTS.md into the target project or workspace.
+Start a fresh assistant session in an environment that can read workspace files.
+Ask the assistant to read AGENTS.md in full before acting.
+Tell it to use AGENTS.md as the operative working frame for the task.
+Then give the real task.
+
+Minimal operator instruction:
+Read AGENTS.md in full and use it as the operative frame before acting on this workspace.
+
+## Visible before action
+- the obvious move
+- the real object being touched
+- the surrounding context that gives the move meaning
+- the valid alternative readings
+- whether the move stays contained or expands scope, risk, or structure
+- why the selected move is the smallest correct one
+
+## Final response contract
+When a response includes a change, recommendation, or finding with operational consequence, it should close with:
+- Touch: what changed and what stayed untouched within expected scope
+- Ground: what the move or conclusion was grounded on
+- State: what is verified, inferred, unresolved, or not inspected
+- Convergence: whether the task is converged, divergent, or blocked
+
+## Stop conditions
+- missing or conflicting context
+- real object not closed
+- authority not closed
+- drift from the operative contract
+- unsurfaced scope, risk, or structure expansion
+- destination ambiguity that changes meaning or consequence
+- multiple valid paths without justified closure
+- incoherent current state that cannot support forward fixing
+
+## Limits
+SensecraftXStudio does not make AI deterministic.
+It does not replace technical judgment.
+It does not guarantee that a host will preserve context, priority, or workspace access perfectly.
+
+## Keywords
+AI-assisted technical work, AGENTS.md, working frame, operational contract, technical review, workspace analysis, bounded AI behavior, grounded closure, SensecraftXStudio
