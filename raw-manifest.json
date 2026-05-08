@@ -1,0 +1,67 @@
+{
+  "name": "SensecraftXStudio",
+  "type": "AI-assisted technical work frame",
+  "description": "A compact working frame for more disciplined, bounded, and reviewable AI behavior in technical work.",
+  "page_url": "https://xxyoudeadpunkxx.github.io/SensecraftXStudio/",
+  "repository": "https://github.com/XxYouDeaDPunKxX/SensecraftXStudio",
+  "license": "CC BY-SA 4.0",
+  "canonical_file": "AGENTS.md",
+  "purpose": "Keep the assistant cognitively bounded before it acts: close the target, read the surrounding system, surface expansion, and report what is actually grounded.",
+  "core_problem": "AI can stay plausible after the frame has already drifted.",
+  "use_cases": [
+    "repository or workspace analysis",
+    "implementation inside an existing codebase",
+    "technical review",
+    "structured comparison",
+    "decision support",
+    "verification before closure"
+  ],
+  "activation": [
+    "Copy AGENTS.md into the target project or workspace.",
+    "Start a fresh assistant session in an environment that can read workspace files.",
+    "Ask the assistant to read AGENTS.md in full before acting.",
+    "Tell it to use AGENTS.md as the operative working frame for the task.",
+    "Then give the real task."
+  ],
+  "minimal_operator_instruction": "Read AGENTS.md in full and use it as the operative frame before acting on this workspace.",
+  "before_action_visibility": [
+    "the obvious move",
+    "the real object being touched",
+    "the surrounding context that gives the move meaning",
+    "the valid alternative readings",
+    "whether the move stays contained or expands scope, risk, or structure",
+    "why the selected move is the smallest correct one"
+  ],
+  "final_response_contract": [
+    {"field": "Touch", "meaning": "what changed and what stayed untouched within expected scope"},
+    {"field": "Ground", "meaning": "what the move or conclusion was grounded on"},
+    {"field": "State", "meaning": "what is verified, inferred, unresolved, or not inspected"},
+    {"field": "Convergence", "meaning": "whether the task is converged, divergent, or blocked"}
+  ],
+  "stop_conditions": [
+    "missing or conflicting context",
+    "real object not closed",
+    "authority not closed",
+    "drift from the operative contract",
+    "unsurfaced scope, risk, or structure expansion",
+    "destination ambiguity that changes meaning or consequence",
+    "multiple valid paths without justified closure",
+    "incoherent current state that cannot support forward fixing"
+  ],
+  "limits": [
+    "does not make AI deterministic",
+    "does not replace technical judgment",
+    "does not guarantee that a host will preserve context, priority, or workspace access perfectly"
+  ],
+  "keywords": [
+    "AI-assisted technical work",
+    "AGENTS.md",
+    "working frame",
+    "operational contract",
+    "technical review",
+    "workspace analysis",
+    "bounded AI behavior",
+    "grounded closure",
+    "SensecraftXStudio"
+  ]
+}
