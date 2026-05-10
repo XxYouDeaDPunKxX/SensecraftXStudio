@@ -1,12 +1,17 @@
 {
   "name": "SensecraftXStudio",
-  "type": "AI-assisted technical work frame",
+  "type": "Agent behavior contract",
   "description": "A compact working frame for more disciplined, bounded, and reviewable AI behavior in technical work.",
+  "url": "https://xxyoudeadpunkxx.github.io/SensecraftXStudio/",
   "page_url": "https://xxyoudeadpunkxx.github.io/SensecraftXStudio/",
   "repository": "https://github.com/XxYouDeaDPunKxX/SensecraftXStudio",
+  "runtime": "AI-assisted technical workspaces using AGENTS.md",
   "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
   "canonical_file": "AGENTS.md",
+  "identity": "Confidence is not trusted here. Close the frame before touching the work.",
   "purpose": "Keep the assistant cognitively bounded before it acts: close the target, read the surrounding system, surface expansion, and report what is actually grounded.",
+  "use_case": "Use SensecraftXStudio when an assistant needs to inspect, edit, review, or reason about real project material and must avoid plausible drift, premature edits, unsurfaced expansion, or weak closure.",
   "core_problem": "AI can stay plausible after the frame has already drifted.",
   "use_cases": [
     "repository or workspace analysis",
@@ -53,6 +58,26 @@
     "does not replace technical judgment",
     "does not guarantee that a host will preserve context, priority, or workspace access perfectly"
   ],
+  "discovery_set": {
+    "llms": "llms.txt",
+    "manifest": "raw-manifest.json",
+    "robots": "robots.txt",
+    "sitemap": "sitemap.xml",
+    "html_signals": [
+      "canonical URL",
+      "rel=alternate for llms.txt",
+      "rel=alternate for raw-manifest.json",
+      "JSON-LD SoftwareSourceCode metadata",
+      "Open Graph metadata",
+      "footer machine-readable links"
+    ]
+  },
+  "machine_readable_files": [
+    "llms.txt",
+    "raw-manifest.json",
+    "robots.txt",
+    "sitemap.xml"
+  ],
   "keywords": [
     "AI-assisted technical work",
     "AGENTS.md",
@@ -62,6 +87,9 @@
     "workspace analysis",
     "bounded AI behavior",
     "grounded closure",
-    "SensecraftXStudio"
+    "SensecraftXStudio",
+    "agent behavior contract",
+    "plausible drift",
+    "task-state closure"
   ]
 }
