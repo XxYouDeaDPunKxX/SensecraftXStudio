@@ -1,21 +1,49 @@
 # SensecraftXStudio
 
 Name: SensecraftXStudio
-Type: AI-assisted technical work frame
+Type: Agent behavior contract
 URL: https://xxyoudeadpunkxx.github.io/SensecraftXStudio/
 Repository: https://github.com/XxYouDeaDPunKxX/SensecraftXStudio
+Runtime: AI-assisted technical workspaces using AGENTS.md
 License: CC BY-SA 4.0
+License URL: https://creativecommons.org/licenses/by-sa/4.0/
 Canonical file: AGENTS.md
 
+## What this is
+
+SensecraftXStudio is an agent behavior contract for AI-assisted technical work.
+
+It gives the assistant a compact working frame before it acts: close the target, read surrounding context, surface expansion, preserve authority, and report what is actually grounded.
+
+It is not a guarantee of correctness, not a replacement for technical judgment, and not a general personality prompt.
+
+## Operating line
+
+Confidence is not trusted here. Close the frame before touching the work.
+
+## Use case
+
+Use SensecraftXStudio when an assistant needs to inspect, edit, review, or reason about real project material and must avoid plausible drift, premature edits, unsurfaced expansion, or weak closure.
+
+## Canonical source
+
+The canonical file is:
+AGENTS.md
+
+Treat the repository as the live public source. Treat this file as the LLM-readable project index, not as the full contract specification.
+
 ## Purpose
-SensecraftXStudio is a working frame for AI-assisted technical work.
-It is built for sessions where the assistant may inspect, edit, review, or reason about real project material.
-Its job is to keep the assistant cognitively bounded before it acts: close the target, read the surrounding system, surface expansion, and report what is actually grounded.
+
+Keep the assistant cognitively bounded before it acts.
+
+The contract pushes the session to close the real object, inspect the surrounding system, surface expansion, and close with a grounded task-state readout.
 
 ## Core problem
+
 AI can stay plausible after the frame has already drifted.
 
 ## Use cases
+
 - repository or workspace analysis
 - implementation inside an existing codebase
 - technical review
@@ -24,16 +52,22 @@ AI can stay plausible after the frame has already drifted.
 - verification before closure
 
 ## Activation
+
 Copy AGENTS.md into the target project or workspace.
+
 Start a fresh assistant session in an environment that can read workspace files.
+
 Ask the assistant to read AGENTS.md in full before acting.
+
 Tell it to use AGENTS.md as the operative working frame for the task.
+
 Then give the real task.
 
 Minimal operator instruction:
 Read AGENTS.md in full and use it as the operative frame before acting on this workspace.
 
 ## Visible before action
+
 - the obvious move
 - the real object being touched
 - the surrounding context that gives the move meaning
@@ -42,13 +76,16 @@ Read AGENTS.md in full and use it as the operative frame before acting on this w
 - why the selected move is the smallest correct one
 
 ## Final response contract
+
 When a response includes a change, recommendation, or finding with operational consequence, it should close with:
+
 - Touch: what changed and what stayed untouched within expected scope
 - Ground: what the move or conclusion was grounded on
 - State: what is verified, inferred, unresolved, or not inspected
 - Convergence: whether the task is converged, divergent, or blocked
 
 ## Stop conditions
+
 - missing or conflicting context
 - real object not closed
 - authority not closed
@@ -59,9 +96,31 @@ When a response includes a change, recommendation, or finding with operational c
 - incoherent current state that cannot support forward fixing
 
 ## Limits
+
 SensecraftXStudio does not make AI deterministic.
+
 It does not replace technical judgment.
+
 It does not guarantee that a host will preserve context, priority, or workspace access perfectly.
 
+## Discovery Set
+
+Machine-readable project files:
+
+- llms.txt: LLM-readable project index.
+- raw-manifest.json: structured machine-readable project manifest.
+- robots.txt: crawler access declaration.
+- sitemap.xml: sitemap for the GitHub Pages surface.
+
+HTML discovery signals:
+
+- canonical URL
+- rel=alternate for llms.txt
+- rel=alternate for raw-manifest.json
+- JSON-LD SoftwareSourceCode metadata
+- Open Graph metadata
+- footer machine-readable links
+
 ## Keywords
-AI-assisted technical work, AGENTS.md, working frame, operational contract, technical review, workspace analysis, bounded AI behavior, grounded closure, SensecraftXStudio
+
+AI-assisted technical work, AGENTS.md, working frame, operational contract, technical review, workspace analysis, bounded AI behavior, grounded closure, SensecraftXStudio, agent behavior contract, plausible drift, task-state closure
