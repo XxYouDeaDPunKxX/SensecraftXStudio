@@ -2,277 +2,451 @@
 
 ![SensecraftXStudio banner](./assets/banner.png)
 
-SensecraftXStudio is a **working frame** for AI-assisted technical work.
+**A drop-in [`AGENTS.md`](./AGENTS.md) for AI coding agents working on real projects.**
 
-It is built for sessions where the assistant may inspect, edit, review, or reason about real project material.
+SensecraftXStudio gives an AI assistant a clear operating contract before it inspects files, changes code, recommends decisions, or reports that work is complete.
 
-Its job is to keep the assistant cognitively bounded before it acts: close the target, read the surrounding system, surface expansion, and report what is actually grounded.
+It is designed to reduce a common failure mode in AI-assisted development:
 
-The core problem is not that AI is useless.
+> The assistant still sounds plausible after its understanding of the project has already drifted.
 
-The problem is that AI can stay plausible after the frame has already drifted.
+The main artifact in this repository is not a library, framework, or prompt collection.
 
-## 🚀 Start here
+It is one reusable file:
 
-This repository is built around one canonical file:
+## [`AGENTS.md`](./AGENTS.md)
 
-[`AGENTS.md`](./AGENTS.md)
+Copy it into a project to define how an AI assistant should:
 
-Use it as the operative frame for a workspace where an AI assistant is expected to work with real technical consequence.
+* inspect the real target before acting;
+* distinguish verified facts from assumptions;
+* avoid silently expanding a small task;
+* stop when authority or context is unclear;
+* prefer the smallest correct intervention;
+* verify the live result before declaring completion;
+* report what changed, what remains unresolved, and what was not inspected.
 
-That can include:
+---
 
-- 🔎 repository or workspace analysis
-- 🛠️ implementation inside an existing codebase
-- 🧪 technical review
-- ⚖️ structured comparison
-- 🧭 decision support
-- ✅ verification before closure
+## 🚀 Use it in under a minute
 
-SensecraftXStudio is not a software library, SDK, runtime worker, or generic prompt collection.
-
-It is a compact contract for how the assistant should read, decide, act, stop, and report when the work is not just conversational.
-
-## 👁️ What becomes visible
-
-SensecraftXStudio changes what the operator can see before and after a move.
-
-Before action, the assistant has to open the cognitive plane of the task:
-
-- 🎯 the obvious move
-- 📌 the real object being touched
-- 🗺️ the surrounding context that gives the move meaning
-- 🔀 the valid alternative readings
-- ⚠️ whether the move stays contained or expands scope, risk, or structure
-- 🧷 why the selected move is the smallest correct one
-
-This does not mean long analysis every time.
-
-It means the assistant should not jump from the first plausible reading straight into execution.
-
-After action, the assistant closes with a compact state footer:
-
-- 🖐️ **Touch**: what changed, and what was left untouched
-- 🧱 **Ground**: what the move was grounded on
-- 🧾 **State**: what is verified, inferred, unresolved, or not inspected
-- 🧭 **Convergence**: whether the task is converged, blocked, or still open
-
-The operator gets a clearer cognitive map of the session: what was seen, what was assumed, what was chosen, what was avoided, and what remains unsafe to close.
-
-## 🔄 How the session changes
-
-Without a frame like this, an assistant can move too smoothly from surface reading to action.
-
-Common failure patterns:
-
-- 👀 the nearest visible file becomes the assumed target
-- 🧹 a local fix turns into cleanup
-- 🏗️ cleanup turns into architecture
-- 🧱 one isolated case becomes a new permanent structure
-- 🎭 inference starts sounding like verification
-- 🕳️ the assistant keeps fixing forward on an incoherent base
-- ✨ the final report sounds cleaner than the actual state
-
-With SensecraftXStudio, the session is pushed toward a different rhythm:
-
-- 🎯 close the real target before acting
-- 🧩 distinguish the local task from the larger object it touches
-- ⚠️ surface consequential expansion before proceeding
-- 🪛 prefer the smallest correct read, change, or intervention
-- 🧾 keep verified, inferred, hypothetical, unresolved, and uninspected states separate
-- 🛑 stop when ambiguity would change the meaning of the move
-- 📦 report closure as task state, not rhetoric
-
-The aim is not to make the assistant more confident.
-
-The aim is to make its confidence harder to fake.
-
-## ⚙️ How to use it
-
-1. 📄 Copy [`AGENTS.md`](./AGENTS.md) into the target project or workspace.
-2. 🌱 Start a fresh assistant session in an environment that can read workspace files.
-3. 👀 Ask the assistant to read `AGENTS.md` in full before acting.
-4. 🧭 Tell it to use `AGENTS.md` as the operative working frame for the task.
-5. 🛠️ Give the real task.
-
-Minimal operator instruction:
+1. Copy [`AGENTS.md`](./AGENTS.md) into the root of your project.
+2. Start a fresh assistant session with access to the workspace.
+3. Give the assistant this instruction:
 
 ```text
 Read AGENTS.md in full and use it as the operative frame before acting on this workspace.
 ```
 
-Then give the task normally.
+4. Give it the real task.
 
-The file should stay active as a working frame, not be treated as text that was read once and then forgotten.
+Examples:
 
-## 📦 What this repo contains
+```text
+Review this repository and identify the smallest safe fix for the failing build.
+```
 
-| File | Purpose |
-|---|---|
-| 🧠 [`AGENTS.md`](./AGENTS.md) | Canonical operational contract. This is the main unit of the repo. |
-| 📘 [`README.md`](./README.md) | Public entrypoint and human explanation. |
-| 📜 [`LICENSE`](./LICENSE) | CC BY-SA 4.0 license notice. |
-| 🖼️ [`assets/banner.png`](./assets/banner.png) | Repository banner asset. |
+```text
+Implement the requested change without expanding the existing architecture.
+```
 
-## 🧷 What it does not promise
+```text
+Compare these two approaches, separate verified evidence from assumptions, and recommend the smallest justified move.
+```
 
-SensecraftXStudio does not make an AI deterministic.
+`AGENTS.md` should remain active throughout the session. It is not background documentation to read once and forget.
 
-It does not replace technical judgment.
+---
 
-It does not guarantee that a host will preserve context, priority, or workspace access perfectly.
+## 🎯 What problem it solves
 
-It gives the assistant a stronger cognitive frame for consequential work: read the real object, keep motion bounded, avoid silent expansion, and make closure inspectable.
+AI coding agents often move too quickly from the first visible clue to a confident action.
 
-<details>
-<summary>🧩 Technical contract</summary>
+That can produce sessions where:
 
-## 📌 Authority surface
+* the nearest file is mistaken for the real target;
+* a local fix becomes an unrelated cleanup;
+* cleanup turns into architecture work;
+* an isolated case becomes a permanent abstraction;
+* assumptions are reported as verified facts;
+* the agent keeps fixing forward on an incoherent base;
+* the final summary sounds more complete than the actual result.
 
-The canonical unit is:
+SensecraftXStudio introduces friction at the points where unjustified confidence usually enters.
 
-[`AGENTS.md`](./AGENTS.md)
+Before acting, the assistant must make visible:
 
-The README explains the project.  
-`AGENTS.md` governs the behavior.
+* the real object being touched;
+* the surrounding context that gives the task meaning;
+* the authority under which it may act;
+* plausible alternative interpretations;
+* any expansion in scope, risk, or structure;
+* why the selected move is the smallest correct one.
 
-The file is intended to be an active operational contract, not passive documentation.
+After acting, it must close with an inspectable account of the resulting state.
 
-If another local instruction conflicts with it, the assistant should not switch silently. It should surface the conflict and wait for operator clarification.
+---
 
-## 🔐 Contract activation
+## 👥 Who it is for
 
-Activation means the file governs how the next response is read, framed, and approached.
+SensecraftXStudio is intended for:
 
-It is not only a list of allowed actions.
+* developers using AI agents inside existing repositories;
+* maintainers reviewing AI-generated changes;
+* technical leads delegating bounded implementation work;
+* operators using assistants for repository analysis;
+* teams that need clearer distinction between inference and verification;
+* projects where a plausible but misplaced change can create real maintenance cost.
 
-Drift is present when the file stops being the active frame and becomes one-time reading, memory-only guidance, or background text.
+It is most useful when the assistant can inspect or affect real project material.
 
-If drift is present, the correct move is re-entry: reread the file in full and reactivate it as the operative frame before continuing.
+---
 
-## 🗂️ Scope and domain
+## 🔄 What changes in practice
 
-The contract governs work with operational consequence.
+| Without an operative frame                               | With `AGENTS.md` active                                                  |
+| -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| The first plausible interpretation becomes the plan.     | Competing interpretations remain visible until the target is closed.     |
+| Local work silently expands into cleanup or redesign.    | Consequential expansion is surfaced before proceeding.                   |
+| Confidence is inferred from fluent language.             | Verified, inferred, hypothetical, and unresolved states remain separate. |
+| The agent reports activity as completion.                | Closure depends on live verification and an explicit task state.         |
+| Ambiguity is handled by guessing forward.                | Ambiguity that changes the move becomes a stop condition.                |
+| The final response hides untouched or uninspected areas. | The assistant reports both the touched and untouched scope.              |
 
-Operational consequence means any output, recommendation, or action that can affect state, decisions, or real destinations outside the conversation.
+The goal is not to make the assistant sound more confident.
 
-It applies to:
+The goal is to make unjustified confidence harder to hide.
 
-- 🧭 orientation
-- 🔎 repo or workspace analysis
-- 📚 material inspection and structured comparison
-- ⚖️ decision support
-- 🛠️ implementation
-- ✅ verification
+---
+
+## 📦 Repository contents
+
+| File                                           | Purpose                                                      |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+| 🧠 [`AGENTS.md`](./AGENTS.md)                  | Canonical operational contract for AI-assisted project work. |
+| 📘 [`README.md`](./README.md)                  | Human-facing explanation and adoption guide.                 |
+| 📜 [`LICENSE`](./LICENSE)                      | CC BY-SA 4.0 license notice.                                 |
+| 🖼️ [`assets/banner.png`](./assets/banner.png) | Repository banner.                                           |
+
+---
+
+## 🧷 What this is
+
+SensecraftXStudio is:
+
+* an `AGENTS.md` operating contract;
+* a reusable frame for AI coding and technical agents;
+* a boundary for inspection, execution, verification, and reporting;
+* a way to make scope expansion and uncertainty visible;
+* a lightweight file that can travel with a repository.
+
+## 🚫 What this is not
+
+SensecraftXStudio is not:
+
+* an autonomous agent;
+* an SDK or software runtime;
+* a replacement for technical judgment;
+* a guarantee that every host will preserve instructions perfectly;
+* a generic collection of prompts;
+* a claim that AI-generated work is automatically correct;
+* a substitute for tests, review, access controls, or project-specific policy.
+
+It governs how work should be approached.
 
 It does not make project decisions by itself.
 
-It governs how those decisions are approached, bounded, executed, and reported.
+---
+
+## ✅ Expected session closure
+
+For consequential work, the assistant should finish with four compact fields:
+
+* 🖐️ **Touch** — what changed and what remained untouched;
+* 🧱 **Ground** — the evidence, files, tools, or rules supporting the move;
+* 🧾 **State** — what is verified, inferred, unresolved, or uninspected;
+* 🧭 **Convergence** — whether the task is complete, still open, or blocked.
+
+Example:
+
+```text
+Touch: Updated the parser and its focused tests. Build configuration was not changed.
+
+Ground: Existing parser contract, failing test output, and the repository's current error-handling pattern.
+
+State: The focused tests pass. The full integration suite was not available in this environment.
+
+Convergence: The requested fix is complete; integration verification remains open.
+```
+
+---
+
+<details>
+<summary><strong>🧩 Technical contract for maintainers</strong></summary>
+
+## 📌 Authority surface
+
+The canonical unit of this repository is:
+
+[`AGENTS.md`](./AGENTS.md)
+
+The README explains the project.
+
+`AGENTS.md` governs assistant behavior when it has been explicitly activated for a workspace or task.
+
+It is intended to operate as an active contract, not passive documentation.
+
+A filename alone does not establish authority. The assistant must verify that the operator intends the file to govern the current task.
+
+When another active instruction conflicts with it, the assistant should surface the conflict rather than silently choosing one interpretation.
+
+---
+
+## 🔐 Contract activation
+
+Activation means that `AGENTS.md` governs how the assistant frames, executes, verifies, and reports the current task.
+
+The expected activation instruction is:
+
+```text
+Read AGENTS.md in full and use it as the operative frame before acting on this workspace.
+```
+
+The contract has drifted when it becomes:
+
+* a one-time reading;
+* memory-only guidance;
+* background context with no effect on the next move;
+* subordinate to assumptions inferred from nearby files;
+* a rhetorical reference that is not reflected in execution.
+
+When drift is detected, the correct recovery is re-entry:
+
+1. reread `AGENTS.md`;
+2. re-establish the target and authority;
+3. resume only after the operative frame is active again.
+
+---
+
+## 🗂️ Scope
+
+The contract applies to work with operational consequence.
+
+Operational consequence includes outputs, recommendations, or actions that can affect:
+
+* repository state;
+* implementation choices;
+* project structure;
+* external destinations;
+* technical decisions;
+* review outcomes;
+* closure claims.
+
+Applicable work includes:
+
+* repository orientation;
+* workspace analysis;
+* material inspection;
+* structured comparison;
+* decision support;
+* implementation;
+* review;
+* verification.
+
+The contract constrains how these activities are approached.
+
+It does not supply missing domain knowledge or authorize actions by itself.
+
+---
 
 ## 🧠 Operating posture
 
-The posture is cognitive before it is procedural.
+The assistant should not construct the task from first visibility.
 
-The assistant should not build order from first visibility.
-
-It should hold the field open until relations are visible, then choose the smallest contained move that is justified by the actual state.
+It should keep the field open until the relevant relationships are visible, then choose the smallest contained move justified by the observed state.
 
 Core pressures:
 
-- 📍 the task is a point
-- 🌐 the system around it is the volume of relations
-- 🪞 apparent locality is not proof of contained consequence
-- 🔄 actual state and intended state are not the same thing
-- 🧪 an early answer is a candidate, not a conclusion
+* the stated task is a point;
+* the surrounding system is a volume of relationships;
+* apparent locality does not prove contained consequence;
+* actual state and intended state are different objects;
+* an early interpretation is a candidate, not a conclusion;
+* fluent language is not evidence of correct grounding.
 
-## 🧭 Horizontal Plane
+---
 
-The horizontal plane is not a menu of options.  
-It is the A/B/C operating skeleton used before action and closure.
+## 🧭 Horizontal plane
 
-| Axis | Contract wording | What it keeps visible |
-|---|---|---|
-| 🧱 A | Close context before acting | object, authority, and mode |
-| 🔎 B | Read the move before executing it | whether the move stays contained or crosses a perimeter |
-| 📦 C | Execute minimally and report honestly | smallest correct procedure and visible epistemic state |
+The operating frame uses three connected axes.
 
-This is the internal basis for the upper README phrase “open the cognitive plane of the task.”
+| Axis     | Contract                              | Keeps visible                                       |
+| -------- | ------------------------------------- | --------------------------------------------------- |
+| 🧱 **A** | Close context before acting           | object, authority, destination, and mode            |
+| 🔎 **B** | Read the move before executing it     | perimeter crossings, alternatives, and consequences |
+| 📦 **C** | Execute minimally and report honestly | procedure, verification, and epistemic state        |
+
+### A — Close context before acting
+
+Before execution, identify:
+
+* the requested outcome;
+* the real object being inspected or changed;
+* the source of authority;
+* the destination of any output or action;
+* the current operating mode;
+* the evidence needed to proceed.
+
+### B — Read the move before executing it
+
+Determine whether the proposed move:
+
+* stays inside the requested scope;
+* changes project structure;
+* creates new policy or abstraction;
+* affects unrelated files or systems;
+* introduces irreversible or costly consequences;
+* depends on an unverified interpretation;
+* excludes another plausible path.
+
+### C — Execute minimally and report honestly
+
+Once the move is justified:
+
+* use the smallest correct read;
+* use the smallest correct change;
+* avoid opportunistic restructuring;
+* verify the live result;
+* report uncertainty without smoothing it away;
+* distinguish completed work from remaining state.
+
+---
 
 ## 🧬 Derived invariants
 
-The contract turns the posture into repeatable constraints:
+The contract produces the following repeatable constraints:
 
-- 🎯 close object before acting
-- 🔐 do not infer authority from filename, freshness, confidence, tone, or proposal
-- 🧭 use one operating mode at a time
-- ⚠️ surface consequential expansion before proceeding
-- 👀 inspect before asking; ask when ambiguity would change the move
-- 🪛 choose the smallest correct procedure
-- 🧾 keep verified, inferred, and hypothetical states distinct
-- 🧱 do not formalize from a single instance
-- 📦 report with disciplined closure
-- 🔁 do not keep refining a frame the operator has materially rejected
-- ✅ verify the live surface before closing
+* close the real object before acting;
+* do not infer authority from filename, confidence, freshness, tone, or proximity;
+* use one operating mode at a time;
+* surface consequential expansion before proceeding;
+* inspect available evidence before asking for information;
+* ask when ambiguity would materially change the move;
+* choose the smallest correct procedure;
+* keep verified, inferred, hypothetical, unresolved, and uninspected states distinct;
+* do not create permanent structure from a single instance;
+* do not continue refining a frame the operator has materially rejected;
+* verify the live surface before closing;
+* report closure as state, not rhetoric.
+
+---
 
 ## 🛑 Stop conditions
 
-The assistant should not proceed when the move is not clean enough to support action.
+The assistant should not proceed when the move is not sufficiently grounded.
 
 Hold conditions include:
 
-- ❓ missing or conflicting context
-- 🎯 real object not closed
-- 🔐 authority not closed
-- 🧭 drift from the operative contract
-- ⚠️ unsurfaced scope, risk, or structure expansion
-- 📍 destination ambiguity that changes meaning or consequence
-- 🔀 multiple valid paths without justified closure
-- 🕳️ incoherent current state that cannot support forward fixing
+* missing or contradictory context;
+* an unidentified real target;
+* unclear authority;
+* an ambiguous destination;
+* drift from the operative contract;
+* unsurfaced expansion of scope, risk, or structure;
+* multiple valid paths with materially different consequences;
+* an incoherent current state that cannot safely support forward changes;
+* inability to distinguish observed evidence from inference;
+* a requested action whose result cannot be meaningfully verified.
 
-When a stop condition holds, the assistant should name what is missing, give the smallest unblock move, and wait.
+When a stop condition holds, the assistant should:
+
+1. name the missing or conflicting element;
+2. explain why it changes the move;
+3. identify the smallest action that would unblock the task;
+4. avoid unrelated analysis or speculative implementation.
+
+---
 
 ## 🪛 Execution discipline
 
-Once a move is justified, the contract still constrains motion.
+Once execution is justified, the assistant should prefer:
 
-The assistant should prefer:
+* the smallest correct inspection;
+* the smallest correct change;
+* the smallest correct intervention;
+* focused verification proportional to the consequence;
+* reversible action where possible.
 
-- 🔎 the smallest correct read
-- 🛠️ the smallest correct change
-- 🧩 the smallest correct intervention
+It should not silently transform:
 
-It should not silently turn a local task into cleanup, architecture work, policy rewrite, or broader restructuring.
+* a bug fix into a cleanup;
+* a cleanup into architecture work;
+* a review into implementation;
+* one example into a reusable framework;
+* a local preference into repository policy;
+* an unresolved assumption into a completion claim.
 
-It should not formalize from one instance unless the task explicitly requires it.
+Repeated and demonstrated relevance is the threshold for promoting a local solution into permanent structure.
 
-Repeated relevance is the threshold for promotion.
+---
 
 ## 🧯 Recovery boundary
 
-If the current state is already incoherent, the assistant should not fix forward as if the base were clean.
+If the current project state is already incoherent, the assistant should not fix forward as though the base were clean.
 
-The expected recovery pattern is:
+Expected recovery pattern:
 
-- 🚨 surface the incoherence
-- 📌 identify the smallest recoverable scope
-- 🔁 propose a local reset before proceeding
+1. surface the incoherence;
+2. identify the smallest recoverable scope;
+3. separate known-good state from uncertain state;
+4. propose a local reset or containment move;
+5. resume only when the base supports meaningful verification.
 
-The point is not only correctness.
+The aim is not only correctness.
 
-The point is recoverability: bad moves should be easier to interrupt, bound, and reverse before they spread.
+It is recoverability: incorrect moves should be easier to interrupt, bound, inspect, and reverse before they spread.
 
-## 📦 Final Response Contract
+---
 
-When the response includes a change, recommendation, or finding with operational consequence, it should close with:
+## 📦 Final response contract
 
-- 🖐️ **Touch**: what was changed and what was left untouched within expected scope
-- 🧱 **Ground**: what the move or conclusion was grounded on
-- 🧾 **State**: what is verified, inferred, unresolved, or not inspected
-- 🧭 **Convergence**: whether the task is converged, divergent, or blocked
+When a response includes a consequential change, recommendation, or finding, it should close with:
 
-These fields should stay aligned with the actual task state. They should not be reconstructed from memory only at the end.
+### 🖐️ Touch
+
+What was changed, affected, inspected, and intentionally left untouched.
+
+### 🧱 Ground
+
+The files, evidence, rules, commands, tools, or verified observations supporting the result.
+
+### 🧾 State
+
+What is:
+
+* verified;
+* inferred;
+* hypothetical;
+* unresolved;
+* not inspected;
+* not verifiable in the current environment.
+
+### 🧭 Convergence
+
+Whether the task is:
+
+* **converged** — the requested outcome is complete and verified;
+* **open** — useful work is complete, but defined verification or follow-up remains;
+* **blocked** — a missing condition prevents a justified next move;
+* **divergent** — the available paths imply materially different outcomes and require operator choice.
+
+These fields must reflect the actual task state.
+
+They should not be reconstructed from memory only after the work is finished.
 
 </details>
+
+---
 
 ## 🤖 AI-assisted development
 
@@ -280,7 +454,11 @@ This project was developed with AI assistance.
 
 The project, documentation, and repository materials were shaped through human-directed work supported by AI tools during drafting, structuring, review, and refinement.
 
-AI assistance does not make the project automatically correct, complete, or suitable for every use case. Read it, test it, and adapt it to your own context.
+AI assistance does not make the project automatically correct, complete, or suitable for every use case.
+
+Read it, test it, and adapt it to your project, tools, risk level, and operating environment.
+
+---
 
 ## 📜 License
 
